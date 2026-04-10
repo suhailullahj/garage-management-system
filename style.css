@@ -4,35 +4,36 @@
 
 /* ---- CSS Variables ---- */
 :root {
-    --bg-primary: #0c0c0c;
-    --bg-surface: #151515;
-    --bg-surface-2: #1c1c1c;
-    --bg-surface-3: #242424;
-    --border: #2a2a2a;
-    --border-light: #333333;
+    --bg-primary: #ffffff;
+    --bg-surface: #f4f7fc;
+    --bg-surface-2: #e8edf6;
+    --bg-surface-3: #dce2ee;
+    --border: #cdd4e2;
+    --border-light: #b5bdd0;
     --accent: #f97316;
     --accent-hover: #ea580c;
     --accent-light: rgba(249, 115, 22, 0.08);
     --accent-glow: rgba(249, 115, 22, 0.15);
-    --success: #22c55e;
-    --success-light: rgba(34, 197, 94, 0.1);
-    --warning: #eab308;
-    --warning-light: rgba(234, 179, 8, 0.1);
-    --danger: #ef4444;
-    --danger-light: rgba(239, 68, 68, 0.1);
-    --info: #06b6d4;
-    --info-light: rgba(6, 182, 212, 0.1);
-    --text-primary: #f5f5f5;
-    --text-secondary: #a3a3a3;
-    --text-muted: #6b6b6b;
+    --success: #1a8a42;
+    --success-light: rgba(26, 138, 66, 0.1);
+    --warning: #b8960a;
+    --warning-light: rgba(184, 150, 10, 0.1);
+    --danger: #d03030;
+    --danger-light: rgba(208, 48, 48, 0.08);
+    --info: #0891b2;
+    --info-light: rgba(8, 145, 178, 0.1);
+    --text-primary: #122c5e;
+    --text-secondary: #3a5f99;
+    --text-muted: #7e96bd;
     --radius: 12px;
     --radius-sm: 8px;
     --radius-xs: 6px;
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 24px rgba(18, 44, 94, 0.08);
+    --shadow-sm: 0 2px 8px rgba(18, 44, 94, 0.06);
     --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'DM Sans', sans-serif;
+}
 }
 
 /* ---- Reset & Base ---- */
