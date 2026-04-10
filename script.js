@@ -788,8 +788,8 @@ document.getElementById('product-search').addEventListener('input', (e) => {
 // Initialization
 // ============================================
 (function init() {
-    // Add one default quotation item row
+    loadState(); // ✅ load saved data
+
     addQuotationItemRow();
-    // Render dashboard on load
     renderDashboard();
 })();
