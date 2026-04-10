@@ -1,1 +1,459 @@
-# garage-management-system
+<!-- =========================================
+     FILE: index.html
+     ========================================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaragePro - Vehicle Management System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Toast notification container -->
+    <div id="toast-container" aria-live="polite"></div>
+
+    <!-- Invoice preview modal -->
+    <div id="invoice-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Invoice Preview">
+        <div class="modal-content">
+            <button class="modal-close" id="close-invoice-modal" aria-label="Close modal">&times;</button>
+            <div id="invoice-body"></div>
+        </div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-inner">
+            <a href="#" class="nav-brand" aria-label="GaragePro Home">
+                <i class="fa-solid fa-wrench"></i>
+                <span>GaragePro</span>
+            </a>
+
+            <!-- Hamburger toggle for mobile -->
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#" class="nav-link active" data-page="dashboard"><i class="fa-solid fa-gauge-high"></i> Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-page="customer"><i class="fa-solid fa-user-plus"></i> Add Vehicle</a></li>
+                <li><a href="#" class="nav-link" data-page="services"><i class="fa-solid fa-screwdriver-wrench"></i> Services</a></li>
+                <li><a href="#" class="nav-link" data-page="quotations"><i class="fa-solid fa-file-lines"></i> Quotations</a></li>
+                <li><a href="#" class="nav-link" data-page="invoice"><i class="fa-solid fa-file-invoice-dollar"></i> Invoice</a></li>
+                <li><a href="#" class="nav-link" data-page="products"><i class="fa-solid fa-boxes-stacked"></i> Products</a></li>
+            </ul>
+
+            <button class="btn-logout" id="btn-logout" aria-label="Logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+        <!-- ========== DASHBOARD ========== -->
+        <section class="page active" id="page-dashboard">
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <p class="page-subtitle">Overview of your garage operations</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card stat-card--total">
+                    <div class="stat-icon"><i class="fa-solid fa-car"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-total">0</span>
+                        <span class="stat-label">Total Vehicles</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--delivered">
+                    <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-delivered">0</span>
+                        <span class="stat-label">Delivered Vehicles</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--maintenance">
+                    <div class="stat-icon"><i class="fa-solid fa-gears"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-maintenance">0</span>
+                        <span class="stat-label">In Maintenance</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Activity</h2>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Activity</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activity-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== ADD CUSTOMER & VEHICLE ========== -->
+        <section class="page" id="page-customer">
+            <div class="page-header">
+                <h1>Add Customer & Vehicle</h1>
+                <p class="page-subtitle">Register a new customer and their vehicle</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Customer & Vehicle Form</h2>
+                </div>
+                <form id="customer-form" class="form-grid" novalidate>
+                    <div class="form-group">
+                        <label for="cust-name">Customer Name</label>
+                        <input type="text" id="cust-name" placeholder="Enter customer name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cust-phone">Phone Number</label>
+                        <input type="tel" id="cust-phone" placeholder="Enter phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="veh-number">Vehicle Number</label>
+                        <input type="text" id="veh-number" placeholder="e.g. ABC-1234" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="veh-model">Vehicle Model</label>
+                        <input type="text" id="veh-model" placeholder="e.g. Toyota Camry 2022" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Customer & Vehicle
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Customer & Vehicle List</h2>
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="customer-search" placeholder="Search customers..." aria-label="Search customers">
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Customer Name</th>
+                                <th>Phone</th>
+                                <th>Vehicle Number</th>
+                                <th>Vehicle Model</th>
+                                <th>Date Added</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customer-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== SERVICE MANAGEMENT ========== -->
+        <section class="page" id="page-services">
+            <div class="page-header">
+                <h1>Service Management</h1>
+                <p class="page-subtitle">Track and manage vehicle services</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Add Service</h2>
+                </div>
+                <form id="service-form" class="form-grid" novalidate>
+                    <div class="form-group">
+                        <label for="svc-vehicle">Vehicle</label>
+                        <select id="svc-vehicle" required>
+                            <option value="">Select vehicle...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="svc-issue">Issue</label>
+                        <input type="text" id="svc-issue" placeholder="Describe the issue" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="svc-work">Work Done</label>
+                        <input type="text" id="svc-work" placeholder="Describe work performed" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="svc-cost">Cost ($)</label>
+                        <input type="number" id="svc-cost" placeholder="0.00" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="svc-status">Status</label>
+                        <select id="svc-status" required>
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Service
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Service Records</h2>
+                    <div class="filter-bar">
+                        <div class="search-box">
+                            <i class="fa-solid fa-search"></i>
+                            <input type="text" id="service-search" placeholder="Search services..." aria-label="Search services">
+                        </div>
+                        <select id="service-filter" aria-label="Filter by status">
+                            <option value="All">All Statuses</option>
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Vehicle</th>
+                                <th>Issue</th>
+                                <th>Work Done</th>
+                                <th>Cost</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="service-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== QUOTATIONS ========== -->
+        <section class="page" id="page-quotations">
+            <div class="page-header">
+                <h1>Quotations</h1>
+                <p class="page-subtitle">Create and manage service quotations</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Create Quotation</h2>
+                </div>
+                <form id="quotation-form" novalidate>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="quo-customer">Customer</label>
+                            <select id="quo-customer" required>
+                                <option value="">Select customer...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="quo-vehicle">Vehicle</label>
+                            <select id="quo-vehicle" required>
+                                <option value="">Select vehicle...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic line items -->
+                    <div class="line-items-section">
+                        <div class="line-items-header">
+                            <h3>Items</h3>
+                            <button type="button" class="btn btn-outline btn-sm" id="add-quotation-item">
+                                <i class="fa-solid fa-plus"></i> Add Item
+                            </button>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table" id="quotation-items-table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th style="width:100px">Qty</th>
+                                        <th style="width:130px">Rate ($)</th>
+                                        <th style="width:130px">Total ($)</th>
+                                        <th style="width:60px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="quotation-items-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" class="text-right text-bold">Grand Total</td>
+                                        <td class="text-bold" id="quotation-grand-total">$0.00</td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-file-lines"></i> Save Quotation
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Quotation List</h2>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Customer</th>
+                                <th>Vehicle</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quotation-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== INVOICE ========== -->
+        <section class="page" id="page-invoice">
+            <div class="page-header">
+                <h1>Invoice</h1>
+                <p class="page-subtitle">Generate invoices from quotations</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Generate Invoice</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="inv-quotation">Select Quotation</label>
+                        <select id="inv-quotation">
+                            <option value="">Select a quotation...</option>
+                        </select>
+                    </div>
+                    <div class="form-actions" style="align-self:flex-end;">
+                        <button type="button" class="btn btn-primary" id="generate-invoice-btn">
+                            <i class="fa-solid fa-file-invoice-dollar"></i> Generate Invoice
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Invoice Records</h2>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice #</th>
+                                <th>Customer</th>
+                                <th>Vehicle</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoice-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PRODUCT MANAGEMENT ========== -->
+        <section class="page" id="page-products">
+            <div class="page-header">
+                <h1>Product Management</h1>
+                <p class="page-subtitle">Manage your garage inventory</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Add Product</h2>
+                </div>
+                <form id="product-form" class="form-grid" novalidate>
+                    <div class="form-group">
+                        <label for="prod-name">Product Name</label>
+                        <input type="text" id="prod-name" placeholder="Enter product name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prod-price">Price ($)</label>
+                        <input type="number" id="prod-price" placeholder="0.00" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Product List</h2>
+                    <div class="search-box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="product-search" placeholder="Search products..." aria-label="Search products">
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Date Added</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
