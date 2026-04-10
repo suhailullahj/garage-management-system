@@ -34,7 +34,6 @@
     --font-display: 'Space Grotesk', sans-serif;
     --font-body: 'DM Sans', sans-serif;
 }
-}
 
 /* ---- Reset & Base ---- */
 *, *::before, *::after {
@@ -85,11 +84,10 @@ input, select, textarea {
 }
 ::-webkit-scrollbar-thumb {
     background: #c4c9d4;
-}
     border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--text-muted);
+    background: #a0a8b6;
 }
 
 /* ---- Top Navigation ---- */
@@ -130,9 +128,6 @@ input, select, textarea {
 }
 .nav-brand i {
     color: var(--accent);
-}
-.nav-brand i {
-    font-size: 1.1rem;
 }
 
 .nav-links {
@@ -244,8 +239,8 @@ input, select, textarea {
 /* ---- Stat Cards ---- */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 14px;
     margin-bottom: 28px;
 }
 
@@ -271,22 +266,31 @@ input, select, textarea {
     border-color: var(--border-light);
 }
 
-.stat-card--total { border-left-color: var(--accent); }
-.stat-card--delivered { border-left-color: var(--success); }
-.stat-card--maintenance { border-left-color: var(--warning); }
+.stat-card--alldata { border-left-color: var(--accent); cursor: pointer; }
+.stat-card--delivered { border-left-color: var(--success); cursor: pointer; }
+.stat-card--maintenance { border-left-color: var(--warning); cursor: pointer; }
+.stat-card--transferred { border-left-color: var(--info); cursor: pointer; }
+.stat-card--outofservice { border-left-color: var(--danger); cursor: pointer; }
 
-.stat-card--total .stat-icon { color: #ffffff; background: var(--accent); }
+.stat-card--alldata .stat-icon { color: #ffffff; background: var(--accent); }
 .stat-card--delivered .stat-icon { color: #ffffff; background: var(--success); }
 .stat-card--maintenance .stat-icon { color: #ffffff; background: var(--warning); }
+.stat-card--transferred .stat-icon { color: #ffffff; background: var(--info); }
+.stat-card--outofservice .stat-icon { color: #ffffff; background: var(--danger); }
+
+.stat-card--active {
+    box-shadow: 0 0 0 2px var(--accent), 0 4px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
 
 .stat-icon {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     flex-shrink: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -297,13 +301,13 @@ input, select, textarea {
 }
 .stat-number {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: -0.03em;
 }
 .stat-label {
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     color: var(--text-muted);
     margin-top: 2px;
     font-weight: 500;
@@ -361,6 +365,7 @@ input, select, textarea {
     white-space: nowrap;
     border-bottom: 1px solid var(--border);
 }
+
 .data-table tbody td {
     padding: 13px 20px;
     border-bottom: 1px solid var(--border);
@@ -521,7 +526,7 @@ input, select, textarea {
 }
 .btn-primary:hover {
     background: var(--accent-hover);
-    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.25);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25);
 }
 
 .btn-outline {
@@ -653,6 +658,33 @@ input, select, textarea {
 }
 #quotation-items-table input::placeholder {
     color: var(--text-muted);
+}
+
+/* ---- Date Filter ---- */
+.date-filter {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.date-filter label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+.date-filter input[type="date"] {
+    padding: 7px 10px;
+    background: var(--bg-surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    color: var(--text-primary);
+    font-size: 0.84rem;
+    outline: none;
+    transition: var(--transition);
+}
+.date-filter input[type="date"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 /* ---- Modal ---- */
@@ -879,6 +911,12 @@ input, select, textarea {
 }
 
 /* ---- Responsive ---- */
+@media (max-width: 1100px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 1024px) {
     .stats-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -893,7 +931,7 @@ input, select, textarea {
         display: flex;
     }
 
-        .nav-links {
+    .nav-links {
         display: none;
         position: absolute;
         top: 64px;
@@ -923,7 +961,11 @@ input, select, textarea {
     }
 
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .date-filter {
+        width: 100%;
     }
 
     .form-grid {
@@ -964,7 +1006,6 @@ input, select, textarea {
         padding: 20px 16px 40px;
     }
 
-    /* Invoice modal on mobile */
     .invoice-print {
         padding: 28px 20px;
     }
