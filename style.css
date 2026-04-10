@@ -54,10 +54,6 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
-    /* Subtle warm radial glow in the background */
-    background-image:
-        radial-gradient(ellipse at 15% 50%, rgba(249, 115, 22, 0.03) 0%, transparent 50%),
-        radial-gradient(ellipse at 85% 15%, rgba(249, 115, 22, 0.02) 0%, transparent 40%);
 }
 
 a {
@@ -84,10 +80,10 @@ input, select, textarea {
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--bg-primary);
+    background: #eef2f9;
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--border-light);
+    background: #b0bdd4;
     border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -99,10 +95,10 @@ input, select, textarea {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(12, 12, 12, 0.85);
+    background: #c5ddf5;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid #a8c4e2;
 }
 
 .nav-inner {
@@ -374,7 +370,7 @@ input, select, textarea {
     transition: var(--transition);
 }
 .data-table tbody tr:hover {
-    background: var(--bg-surface-2);
+    background: #e0e8f5;
 }
 .data-table tbody tr:last-child td {
     border-bottom: none;
@@ -395,6 +391,7 @@ input, select, textarea {
     color: var(--text-muted);
     padding: 40px 20px;
     font-style: italic;
+    background: transparent;
 }
 
 /* ---- Status Badges ---- */
@@ -661,7 +658,7 @@ input, select, textarea {
     position: fixed;
     inset: 0;
     z-index: 200;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(18, 44, 94, 0.35);
     backdrop-filter: blur(6px);
     display: none;
     align-items: flex-start;
@@ -901,9 +898,9 @@ input, select, textarea {
         left: 0;
         right: 0;
         flex-direction: column;
-        background: rgba(12, 12, 12, 0.97);
+        background: #c5ddf5;
         backdrop-filter: blur(16px);
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid #a8c4e2;
         padding: 12px 16px;
         gap: 2px;
     }
