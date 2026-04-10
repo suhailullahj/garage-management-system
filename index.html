@@ -64,26 +64,77 @@
             </div>
 
             <div class="stats-grid">
-                <div class="stat-card stat-card--total">
-                    <div class="stat-icon"><i class="fa-solid fa-car"></i></div>
+                <div class="stat-card stat-card--alldata" data-filter="all">
+                    <div class="stat-icon"><i class="fa-solid fa-database"></i></div>
                     <div class="stat-info">
-                        <span class="stat-number" id="stat-total">0</span>
-                        <span class="stat-label">Total Vehicles</span>
+                        <span class="stat-number" id="stat-alldata">0</span>
+                        <span class="stat-label">All Data</span>
                     </div>
                 </div>
-                <div class="stat-card stat-card--delivered">
+                <div class="stat-card stat-card--delivered" data-filter="Delivered">
                     <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
                     <div class="stat-info">
                         <span class="stat-number" id="stat-delivered">0</span>
-                        <span class="stat-label">Delivered Vehicles</span>
+                        <span class="stat-label">Delivered</span>
                     </div>
                 </div>
-                <div class="stat-card stat-card--maintenance">
+                <div class="stat-card stat-card--maintenance" data-filter="Maintenance">
                     <div class="stat-icon"><i class="fa-solid fa-gears"></i></div>
                     <div class="stat-info">
                         <span class="stat-number" id="stat-maintenance">0</span>
-                        <span class="stat-label">In Maintenance</span>
+                        <span class="stat-label">Maintenance</span>
                     </div>
+                </div>
+                <div class="stat-card stat-card--transferred" data-filter="Transferred">
+                    <div class="stat-icon"><i class="fa-solid fa-truck-moving"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-transferred">0</span>
+                        <span class="stat-label">Transferred</span>
+                    </div>
+                </div>
+                <div class="stat-card stat-card--outofservice" data-filter="Out of Service">
+                    <div class="stat-icon"><i class="fa-solid fa-ban"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="stat-outofservice">0</span>
+                        <span class="stat-label">Out of Service</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Data Table Section -->
+            <div class="card all-data-section" id="all-data-section" style="display:none;">
+                <div class="card-header">
+                    <h2 class="card-title" id="all-data-title">All Vehicles</h2>
+                    <div class="date-filter">
+                        <label for="date-from">From:</label>
+                        <input type="date" id="date-from">
+                        <label for="date-to">To:</label>
+                        <input type="date" id="date-to">
+                        <button type="button" class="btn btn-outline btn-sm" id="date-filter-clear"><i class="fa-solid fa-xmark"></i> Clear</button>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Actions</th>
+                                <th>Plate Number</th>
+                                <th>Chassis Number</th>
+                                <th>Type</th>
+                                <th>Customer Name</th>
+                                <th>Status</th>
+                                <th>Customer Email</th>
+                                <th>Contact Number</th>
+                                <th>Car Taken</th>
+                                <th>Car Delivered</th>
+                                <th>Car Notes</th>
+                                <th>Last Updated</th>
+                            </tr>
+                        </thead>
+                        <tbody id="all-data-table-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -282,7 +333,6 @@
                         </div>
                     </div>
 
-                    <!-- Dynamic line items -->
                     <div class="line-items-section">
                         <div class="line-items-header">
                             <h3>Items</h3>
@@ -301,9 +351,7 @@
                                         <th style="width:60px"></th>
                                     </tr>
                                 </thead>
-                                <tbody id="quotation-items-body">
-                                    <!-- Dynamic rows -->
-                                </tbody>
+                                <tbody id="quotation-items-body"></tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="3" class="text-right text-bold">Grand Total</td>
@@ -339,9 +387,7 @@
                                 <th>Date</th>
                             </tr>
                         </thead>
-                        <tbody id="quotation-table-body">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="quotation-table-body"></tbody>
                     </table>
                 </div>
             </div>
@@ -390,9 +436,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody id="invoice-table-body">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="invoice-table-body"></tbody>
                     </table>
                 </div>
             </div>
@@ -444,9 +488,7 @@
                                 <th>Date Added</th>
                             </tr>
                         </thead>
-                        <tbody id="product-table-body">
-                            <!-- Populated by JS -->
-                        </tbody>
+                        <tbody id="product-table-body"></tbody>
                     </table>
                 </div>
             </div>
