@@ -1,3 +1,15 @@
+const STORAGE_KEY = 'garage-app-data';
+
+function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadState() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (data) {
+        Object.assign(state, JSON.parse(data));
+    }
+}
 // ============================================
 // FILE: script.js
 // ============================================
