@@ -34,6 +34,7 @@ const state = {
 // Sample / Seed Data
 // ============================================
 (function seedData() {
+    if (localStorage.getItem(STORAGE_KEY)) return; // ✅ stop overwrite
     // Customers
     const c1 = { id: genId(), name: 'Marcus Reid', phone: '555-0101', createdAt: '2024-11-02' };
     const c2 = { id: genId(), name: 'Elena Vasquez', phone: '555-0202', createdAt: '2024-11-05' };
@@ -386,7 +387,7 @@ document.getElementById('service-form').addEventListener('submit', (e) => {
     }
 
     state.services.push({ id: genId(), vehicleId, issue, workDone, cost, status, createdAt: todayStr() });
-
+    saveState();
     const vLabel = getVehicleLabel(vehicleId);
     state.activities.unshift({
         id: genId(), type: 'service',
@@ -533,6 +534,7 @@ document.getElementById('quotation-form').addEventListener('submit', (e) => {
 
     const total = items.reduce((s, i) => s + i.total, 0);
     state.quotations.push({
+        saveState();
         id: genId(), customerId: custId, vehicleId: vehId,
         items, total, createdAt: todayStr(), status: 'Pending'
     });
@@ -602,7 +604,7 @@ document.getElementById('generate-invoice-btn').addEventListener('click', () => 
         status: 'Unpaid'
     };
     state.invoices.push(invoice);
-
+saveState();
     state.activities.unshift({
         id: genId(), type: 'invoice',
         description: `Invoice ${invoiceNumber} generated for ${getCustomerName(q.customerId)}`,
@@ -749,6 +751,7 @@ document.getElementById('product-form').addEventListener('submit', (e) => {
     }
 
     state.products.push({ id: genId(), name, price, createdAt: todayStr() });
+    saveState();
     state.activities.unshift({
         id: genId(), type: 'product',
         description: `Product "${name}" added (${formatCurrency(price)})`,
