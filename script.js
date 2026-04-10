@@ -323,11 +323,12 @@ function renderAllDataTable() {
         return;
     }
 
-    tbody.innerHTML = data.map(v => {
+        tbody.innerHTML = data.map(v => {
         const customer = state.customers.find(c => c.id === v.customerId);
         return `<tr>
             <td><button class="btn-ghost" onclick="editVehicle(${v.id})" aria-label="Edit vehicle ${v.number}"><i class="fa-solid fa-pen-to-square"></i></button></td>
             <td style="color:var(--text-primary);font-weight:600;white-space:nowrap;">${v.number}</td>
+            <td style="max-width:180px;white-space:normal;line-height:1.4;">${v.carNotes || '-'}</td>
             <td style="white-space:nowrap;">${v.chassisNumber}</td>
             <td>${v.type}</td>
             <td>${customer ? customer.name : '-'}</td>
@@ -336,11 +337,9 @@ function renderAllDataTable() {
             <td>${customer ? customer.phone : '-'}</td>
             <td style="white-space:nowrap;">${v.carTaken || '-'}</td>
             <td style="white-space:nowrap;">${v.carDelivered || '-'}</td>
-            <td style="max-width:180px;white-space:normal;line-height:1.4;">${v.carNotes || '-'}</td>
             <td style="white-space:nowrap;">${v.lastUpdated || '-'}</td>
         </tr>`;
     }).join('');
-}
 
 function editVehicle(vehicleId) {
     const v = state.vehicles.find(x => x.id === vehicleId);
