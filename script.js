@@ -36,10 +36,10 @@ let activeFilter = null;
     // Vehicles (extended fields for the All Data table)
     const v1 = { id: genId(), customerId: c1.id, number: 'TXL-4821', model: 'Toyota Camry 2022', type: 'Sedan', chassisNumber: 'CHS-2024-4821', status: 'Delivered', carTaken: '2024-11-02', carDelivered: '2024-11-14', carNotes: 'Engine repair completed successfully', lastUpdated: '2024-11-14', createdAt: '2024-11-02' };
     const v2 = { id: genId(), customerId: c2.id, number: 'HND-7733', model: 'Honda Civic 2021', type: 'Sedan', chassisNumber: 'CHS-2021-7733', status: 'Delivered', carTaken: '2024-11-05', carDelivered: '2024-11-15', carNotes: 'Brake service completed', lastUpdated: '2024-11-15', createdAt: '2024-11-05' };
-    const v3 = { id: genId(), customerId: c3.id, number: 'FRD-1150', model: 'Ford F-150 2023', type: 'Truck', chassisNumber: 'CHS-2023-1150', status: 'Maintenance', carTaken: '2024-11-16', carDelivered: '', carNotes: 'Transmission issue — work in progress', lastUpdated: '2024-11-16', createdAt: '2024-11-08' };
+    const v3 = { id: genId(), customerId: c3.id, number: 'FRD-1150', model: 'Ford F-150 2023', type: 'Truck', chassisNumber: 'CHS-2023-1150', status: 'Maintenance', carTaken: '2024-11-16', carDelivered: '', carNotes: 'Transmission issue - work in progress', lastUpdated: '2024-11-16', createdAt: '2024-11-08' };
     const v4 = { id: genId(), customerId: c4.id, number: 'BMW-9902', model: 'BMW X5 2022', type: 'SUV', chassisNumber: 'CHS-2022-9902', status: 'Maintenance', carTaken: '2024-11-17', carDelivered: '', carNotes: 'AC compressor replacement pending', lastUpdated: '2024-11-17', createdAt: '2024-11-12' };
     const v5 = { id: genId(), customerId: c5.id, number: 'HYD-3344', model: 'Hyundai Tucson 2023', type: 'SUV', chassisNumber: 'CHS-2023-3344', status: 'Transferred', carTaken: '2024-11-18', carDelivered: '', carNotes: 'Transferred to external body shop', lastUpdated: '2024-11-18', createdAt: '2024-11-15' };
-    const v6 = { id: genId(), customerId: c1.id, number: 'NIS-5567', model: 'Nissan Altima 2020', type: 'Sedan', chassisNumber: 'CHS-2020-5567', status: 'Out of Service', carTaken: '2024-11-18', carDelivered: '', carNotes: 'Awaiting spare parts — currently out of service', lastUpdated: '2024-11-18', createdAt: '2024-11-10' };
+    const v6 = { id: genId(), customerId: c1.id, number: 'NIS-5567', model: 'Nissan Altima 2020', type: 'Sedan', chassisNumber: 'CHS-2020-5567', status: 'Out of Service', carTaken: '2024-11-18', carDelivered: '', carNotes: 'Awaiting spare parts - currently out of service', lastUpdated: '2024-11-18', createdAt: '2024-11-10' };
     state.vehicles = [v1, v2, v3, v4, v5, v6];
 
     // Services
@@ -319,11 +319,11 @@ function renderAllDataTable() {
     }
 
     if (data.length === 0) {
-        tbody.innerHTML = '<tr class="empty-row"><td colspan="12">No vehicles found for the selected filter</td></tr>';
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="11">No vehicles found for the selected filter</td></tr>';
         return;
     }
 
-        tbody.innerHTML = data.map(v => {
+    tbody.innerHTML = data.map(v => {
         const customer = state.customers.find(c => c.id === v.customerId);
         return `<tr>
             <td><button class="btn-ghost" onclick="editVehicle(${v.id})" aria-label="Edit vehicle ${v.number}"><i class="fa-solid fa-pen-to-square"></i></button></td>
@@ -340,6 +340,7 @@ function renderAllDataTable() {
             <td style="white-space:nowrap;">${v.lastUpdated || '-'}</td>
         </tr>`;
     }).join('');
+}
 
 function editVehicle(vehicleId) {
     const v = state.vehicles.find(x => x.id === vehicleId);
