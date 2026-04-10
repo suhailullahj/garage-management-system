@@ -310,6 +310,7 @@ document.getElementById('customer-form').addEventListener('submit', (e) => {
     const customerId = genId();
     state.customers.push({ id: customerId, name, phone, createdAt: todayStr() });
     state.vehicles.push({ id: genId(), customerId, number: vNumber, model: vModel, createdAt: todayStr() });
+    saveState(); // ✅ save data
     state.activities.unshift({
         id: genId(), type: 'vehicle',
         description: `${vModel} registered for ${name}`,
