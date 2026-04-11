@@ -380,15 +380,47 @@ document.getElementById('date-filter-clear').addEventListener('click', () => {
 // ============================================
 // Customer & Vehicle Management
 // ============================================
+
+// Toggle form visibility
+const toggleBtn = document.getElementById('toggle-customer-form');
+const formCard = document.getElementById('customer-form-card');
+const closeFormBtn = document.getElementById('close-customer-form');
+
+toggleBtn.addEventListener('click', () => {
+    formCard.style.display = 'block';
+    toggleBtn.style.display = 'none';
+    formCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+closeFormBtn.addEventListener('click', () => {
+    formCard.style.display = 'none';
+    toggleBtn.style.display = 'inline-flex';
+});
+
 document.getElementById('customer-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = document.getElementById('cust-name').value.trim();
-    const phone = document.getElementById('cust-phone').value.trim();
-    const vNumber = document.getElementById('veh-number').value.trim();
-    const vModel = document.getElementById('veh-model').value.trim();
 
-    if (!name || !phone || !vNumber || !vModel) {
-        showToast('Please fill in all fields.', 'error');
+    const name = document.getElementById('cust-name').value.trim();
+    const mob = document.getElementById('cust-mob').value.trim();
+    const tel = document.getElementById('cust-tel').value.trim();
+    const email = document.getElementById('cust-email').value.trim();
+    const address = document.getElementById('cust-address').value.trim();
+    const contactPerson = document.getElementById('cust-contact-person').value.trim();
+    const trn = document.getElementById('cust-trn').value.trim();
+
+    const vNumber = document.getElementById('veh-number').value.trim();
+    const chassis = document.getElementById('veh-chassis').value.trim();
+    const vModel = document.getElementById('veh-model').value.trim();
+    const mileage = document.getElementById('veh-mileage').value;
+    const km = document.getElementById('veh-km').value;
+    const fuel = document.getElementById('veh-fuel').value;
+    const issue = document.getElementById('veh-issue').value.trim();
+    const photoBefore = document.getElementById('photo-before').files.length > 0;
+    const photoAfter = document.getElementById('photo-after').files.length > 0;
+
+    // Validate mandatory fields
+    if (!name || !mob || !contactPerson || !trn || !vNumber || !vModel || !issue || !photoBefore || !photoAfter) {
+        showToast('Please fill in all mandatory fields (marked with *).', 'error');
         return;
     }
 
@@ -398,8 +430,16 @@ document.getElementById('customer-form').addEventListener('submit', (e) => {
     }
 
     const customerId = genId();
-    state.customers.push({ id: customerId, name, phone, email: '', createdAt: todayStr() });
-    state.vehicles.push({ id: genId(), customerId, number: vNumber, model: vModel, type: 'N/A', chassisNumber: 'N/A', status: 'Maintenance', carTaken: todayStr(), carDelivered: '', carNotes: '', lastUpdated: todayStr(), createdAt: todayStr() });
+    const phone = mob + (tel ? ' / ' + tel : '');
+    state.customers.push({ id: customerId, name, phone, email, address, contactPerson, trn, createdAt: todayStr() });
+
+    state.vehicles.push({
+        id: genId(), customerId, number: vNumber, model: vModel, type: fuel || 'N/A',
+        chassisNumber: chassis || 'N/A', status: 'Maintenance', carTaken: todayStr(),
+        carDelivered: '', carNotes: issue, lastUpdated: todayStr(), createdAt: todayStr(),
+        mileage: mileage ? mileage + ' ' + km : 'N/A', fuelType: fuel || 'N/A'
+    });
+
     state.activities.unshift({
         id: genId(), type: 'vehicle',
         description: `${vModel} registered for ${name}`,
@@ -407,10 +447,11 @@ document.getElementById('customer-form').addEventListener('submit', (e) => {
     });
 
     e.target.reset();
+    formCard.style.display = 'none';
+    toggleBtn.style.display = 'inline-flex';
     renderCustomerTable();
     showToast(`Customer "${name}" and vehicle "${vNumber}" added successfully.`);
 });
-
 function renderCustomerTable(filter = '') {
     const tbody = document.getElementById('customer-table-body');
     let data = state.customers.map(c => {
