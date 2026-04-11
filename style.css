@@ -401,6 +401,134 @@ input, select, textarea {
     background: transparent;
 }
 
+/* Required Asterisk */
+.required {
+    color: var(--danger);
+    font-weight: 700;
+    margin-left: 2px;
+}
+
+/* Form Section Dividers */
+.form-section {
+    padding: 20px 24px 8px;
+}
+.form-section + .form-section {
+    border-top: 1px solid var(--border);
+}
+.form-section-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.form-section-title i {
+    color: var(--accent);
+    font-size: 0.88rem;
+}
+
+/* Full width form field */
+.form-group.form-full {
+    grid-column: 1 / -1;
+}
+
+/* Half width fields in same row */
+.form-group-half {
+    grid-column: span 1;
+}
+
+/* Add Toggle Button */
+.add-toggle-btn {
+    margin-bottom: 20px;
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+}
+
+/* Textarea */
+.form-group textarea {
+    padding: 11px 14px;
+    background: var(--bg-surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition);
+    resize: vertical;
+    font-family: inherit;
+    line-height: 1.5;
+}
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+.form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Photo Upload Row */
+.photo-upload-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.photo-upload-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+.photo-upload-group label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+.photo-upload-group input[type="file"] {
+    padding: 9px 12px;
+    background: var(--bg-surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xs);
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    outline: none;
+    transition: var(--transition);
+    cursor: pointer;
+}
+.photo-upload-group input[type="file"]::file-selector-button {
+    padding: 5px 14px;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--border-light);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 12px;
+    transition: var(--transition);
+}
+.photo-upload-group input[type="file"]::file-selector-button:hover {
+    background: var(--accent-light);
+    border-color: var(--accent);
+    color: var(--accent);
+}
+.photo-upload-group input[type="file"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+@media (max-width: 768px) {
+    .photo-upload-row {
+        grid-template-columns: 1fr;
+    }
+    .form-group-half {
+        grid-column: 1 / -1;
+    }
+}
+
 /* ---- Status Badges ---- */
 .badge {
     display: inline-flex;
