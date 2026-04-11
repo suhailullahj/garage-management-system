@@ -160,36 +160,124 @@
         </section>
 
         <!-- ========== ADD CUSTOMER & VEHICLE ========== -->
+               <!-- ========== ADD CUSTOMER & VEHICLE ========== -->
         <section class="page" id="page-customer">
             <div class="page-header">
                 <h1>Add Customer & Vehicle</h1>
                 <p class="page-subtitle">Register a new customer and their vehicle</p>
             </div>
 
-            <div class="card">
+            <!-- Toggle Button -->
+            <button type="button" class="btn btn-primary add-toggle-btn" id="toggle-customer-form">
+                <i class="fa-solid fa-plus"></i> Add Customer & Vehicle
+            </button>
+
+            <!-- Form Card (hidden by default) -->
+            <div class="card" id="customer-form-card" style="display:none;">
                 <div class="card-header">
                     <h2 class="card-title">Customer & Vehicle Form</h2>
+                    <button type="button" class="btn btn-outline btn-sm" id="close-customer-form">
+                        <i class="fa-solid fa-xmark"></i> Close
+                    </button>
                 </div>
-                <form id="customer-form" class="form-grid" novalidate>
-                    <div class="form-group">
-                        <label for="cust-name">Customer Name</label>
-                        <input type="text" id="cust-name" placeholder="Enter customer name" required>
+                <form id="customer-form" novalidate>
+
+                    <!-- Customer Details Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title"><i class="fa-solid fa-user"></i> Customer Details</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="cust-name">Customer / Company Name <span class="required">*</span></label>
+                                <input type="text" id="cust-name" placeholder="Enter customer or company name" required>
+                            </div>
+                            <div class="form-group form-group-half">
+                                <label for="cust-mob">Mob No <span class="required">*</span></label>
+                                <input type="tel" id="cust-mob" placeholder="Mobile number" required>
+                            </div>
+                            <div class="form-group form-group-half">
+                                <label for="cust-tel">Tel No</label>
+                                <input type="tel" id="cust-tel" placeholder="Telephone number">
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-email">Email ID</label>
+                                <input type="email" id="cust-email" placeholder="Enter email address">
+                            </div>
+                            <div class="form-group form-full">
+                                <label for="cust-address">Address / Location</label>
+                                <input type="text" id="cust-address" placeholder="Enter address or location">
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-contact-person">Contact Person Name <span class="required">*</span></label>
+                                <input type="text" id="cust-contact-person" placeholder="Enter contact person name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cust-trn">Customer TRN <span class="required">*</span></label>
+                                <input type="text" id="cust-trn" placeholder="Enter TRN number" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="cust-phone">Phone Number</label>
-                        <input type="tel" id="cust-phone" placeholder="Enter phone number" required>
+
+                    <!-- Vehicle Details Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title"><i class="fa-solid fa-car"></i> Vehicle Details</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="veh-number">Vehicle Plate No <span class="required">*</span></label>
+                                <input type="text" id="veh-number" placeholder="e.g. ABC-1234" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="veh-chassis">Chassis No</label>
+                                <input type="text" id="veh-chassis" placeholder="Enter chassis number">
+                            </div>
+                            <div class="form-group">
+                                <label for="veh-model">Vehicle Make & Model <span class="required">*</span></label>
+                                <input type="text" id="veh-model" placeholder="e.g. Toyota Camry 2022" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="veh-mileage">Mileage</label>
+                                <input type="number" id="veh-mileage" placeholder="e.g. 45000" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="veh-km">K/M</label>
+                                <select id="veh-km">
+                                    <option value="KM">Kilometers (KM)</option>
+                                    <option value="M">Miles (M)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="veh-fuel">Fuel Type</label>
+                                <select id="veh-fuel">
+                                    <option value="">Select fuel type</option>
+                                    <option value="Petrol">Petrol</option>
+                                    <option value="Diesel">Diesel</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                    <option value="Electric">Electric</option>
+                                    <option value="CNG">CNG</option>
+                                </select>
+                            </div>
+                            <div class="form-group form-full">
+                                <label for="veh-issue">Issue <span class="required">*</span></label>
+                                <textarea id="veh-issue" rows="3" placeholder="Describe the issue with the vehicle" required></textarea>
+                            </div>
+                            <div class="form-group form-full">
+                                <label>Before / After Photos <span class="required">*</span></label>
+                                <div class="photo-upload-row">
+                                    <div class="photo-upload-group">
+                                        <label for="photo-before">Before Photo</label>
+                                        <input type="file" id="photo-before" accept="image/*" required>
+                                    </div>
+                                    <div class="photo-upload-group">
+                                        <label for="photo-after">After Photo</label>
+                                        <input type="file" id="photo-after" accept="image/*" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="veh-number">Vehicle Number</label>
-                        <input type="text" id="veh-number" placeholder="e.g. ABC-1234" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="veh-model">Vehicle Model</label>
-                        <input type="text" id="veh-model" placeholder="e.g. Toyota Camry 2022" required>
-                    </div>
-                    <div class="form-actions">
+
+                    <div class="form-actions" style="padding: 0 24px 24px;">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fa-solid fa-plus"></i> Add Customer & Vehicle
+                            <i class="fa-solid fa-floppy-disk"></i> Save Customer & Vehicle
                         </button>
                     </div>
                 </form>
